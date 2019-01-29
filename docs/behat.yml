@@ -5,6 +5,8 @@ profile:
   extensions:
     Behat\MinkExtension:
       files_path: %paths.base%/files
-    kolev\MultilingualExtension:
+    kolevCustomized\MultilingualExtension:
       language: en
-      translations: translations.yml
+      translations:
+        - translations.yml
+        - your-custom-file.yml

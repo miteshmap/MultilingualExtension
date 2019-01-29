@@ -43,11 +43,11 @@ class MultilingualContext extends RawMultilingualContext {
     public function parseTranslationFile() {
         $base_path = $this->getMinkParameter('files_path');
         $base_path = $base_path."/";
-        $file_path = $base_path.$this->multilingual_parameters['translations'];
-        $yaml = file_get_contents($file_path);
-        $yaml_parse_array_check = Yaml::parse($yaml);
-        if(is_array($yaml_parse_array_check)) {
-            $this->translations = $yaml_parse_array_check;
+        foreach($this->multilingual_parameters['translations'] as $translation_file) {
+            $file_path = $base_path.$translation_file;
+            $yaml = file_get_contents($file_path);
+            $yaml_parse = Yaml::parse($yaml);
+            $this->translations = array_replace_recursive($this->translations, $yaml_parse);
         }
     }
 

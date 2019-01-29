@@ -8,7 +8,7 @@ use Behat\MinkExtension\Context\RawMinkContext;
 /**
  * Class RawMultilingualContext.
  *
- * @package kolev\MultilingualExtension\Context
+ * @package kolevCustomized\MultilingualExtension\Context
  */
 class RawMultilingualContext extends RawMinkContext implements MultilingualContextInterface
 {

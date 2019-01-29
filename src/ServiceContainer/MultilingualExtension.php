@@ -54,12 +54,8 @@ class MultilingualExtension implements Extension
     public function configure(ArrayNodeDefinition $builder)
     {
         $config = $builder->children();
-
-        foreach (['default_language', 'translations'] as $param) {
-            $config->scalarNode($param)
-                ->end();
-        }
-
+        $config->scalarNode('default_language')->end();
+        $config->arrayNode('translations')->prototype('scalar')->end();
         $config->end();
     }
 }
