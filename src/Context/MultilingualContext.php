@@ -101,7 +101,6 @@ class MultilingualContext extends RawMultilingualContext {
      */
 
     public function localizeTarget($target) {
-        $translations = $this->multilingual_parameters['translations'];
         if(isset($this->translations[$target][$this->multilingual_parameters['default_language']])){
             $target = $this->translations[$target][$this->languageDetection()];
             return $this->fixStepArgument($target);
@@ -109,7 +108,7 @@ class MultilingualContext extends RawMultilingualContext {
         elseif (isset($this->translations[$target])) {
             return $this->fixStepArgument($target);
         }
-        else throw new \Exception ("The text '$target'' is not defined in '$translations' translation file.");
+        else throw new \Exception ("The text '$target' is not defined in translation files.");
     }
 
     /**
