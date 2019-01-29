@@ -1,5 +1,5 @@
 {
-  "name": "kolev/multilingual-extension",
+  "name": "kolevCustomized/multilingual-extension",
   "type": "behat-extension",
   "description": "Behat extension for testing multilingual sites",
   "keywords": ["drupal", "web", "test", "behat", "testing", "extension", "multilingual", "multilanguage"],
@@ -7,14 +7,19 @@
   "authors": [{
     "name": "Toni Kolev",
     "email": "kolev@toni-kolev.com"
-  }],
+  },
+  {
+    "name": "Mitesh Patel",
+    "email": "miteshmap@gmail.com"
+  }
+],
   "require": {
     "behat/environment-loader": "*",
     "behat/mink-extension": "*"
   },
   "autoload": {
     "psr-4": {
-      "kolev\\MultilingualExtension\\": "src/"
+      "kolevCustomized\\MultilingualExtension\\": "src/"
     }
   },
   "config": {

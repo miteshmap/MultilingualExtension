@@ -2,7 +2,7 @@
 /**
  * @author Toni Kolev, <kolev@toni-kolev.com>
  */
-namespace kolev\MultilingualExtension\Context;
+namespace kolevCustomized\MultilingualExtension\Context;
 use Behat\MinkExtension\Context\RawMinkContext;
 
 /**

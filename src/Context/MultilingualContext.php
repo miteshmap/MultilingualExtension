@@ -1,6 +1,6 @@
 <?php
 
-namespace kolev\MultilingualExtension\Context;
+namespace kolevCustomized\MultilingualExtension\Context;
 
 use Behat\Behat\Context\Context;
 use Symfony\Component\Yaml\Yaml;
@@ -25,8 +25,7 @@ use Behat\MinkExtension\Context\RawMinkContext;
  * This is very early version of the context so it probably has some bugs/issues and points to be improved.
  *
  * @author Toni Kolev <kolev@toni-kolev.com>
- * @skype k-o-l-e-v
- * @github https://github.com/byKolev
+ * @author Mitesh Patel <miteshmap@gmail.com>
  */
 
 class MultilingualContext extends RawMultilingualContext {
@@ -62,7 +61,7 @@ class MultilingualContext extends RawMultilingualContext {
 
     //This function parses the languages_iso_codes.json file to an array.
     public function parseLanguageCodes() {
-        $languages_iso_codes_string = file_get_contents("vendor/kolev/multilingual-extension/src/Resources/languages_iso_codes.json");
+        $languages_iso_codes_string = file_get_contents("vendor/miteshmap/multilingual-extension/src/Resources/languages_iso_codes.json");
         $this->languages_iso_codes = json_decode($languages_iso_codes_string, true);
     }
 
