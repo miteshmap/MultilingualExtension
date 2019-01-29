@@ -87,6 +87,9 @@ class MultilingualContext extends RawMultilingualContext {
         else if (in_array($not_clean_url_language_code,$this->languages_iso_codes) && substr($current_url,$base_url_length+5,1) == "/"){
             return $not_clean_url_language_code;
         }
+        else if(in_array($clean_url_language_code, $this->languages_iso_codes)) {
+            return $clean_url_language_code;
+        }
         else return $this->multilingual_parameters['default_language'];
     }
 
@@ -101,10 +104,10 @@ class MultilingualContext extends RawMultilingualContext {
         $translations = $this->multilingual_parameters['translations'];
         if(isset($this->translations[$target][$this->multilingual_parameters['default_language']])){
             $target = $this->translations[$target][$this->languageDetection()];
-            return $target;
+            return $this->fixStepArgument($target);
         }
         elseif (isset($this->translations[$target])) {
-            return $target;
+            return $this->fixStepArgument($target);
         }
         else throw new \Exception ("The text '$target'' is not defined in '$translations' translation file.");
     }
@@ -131,6 +134,17 @@ class MultilingualContext extends RawMultilingualContext {
     }
 
     /**
+     * Returns fixed step argument (with \\" replaced back to ")
+     *
+     * @param string $argument
+     *
+     * @return string
+     */
+    protected function fixStepArgument($argument) {
+      return str_replace('\\"', '"', $argument);
+    }
+
+    /**
      *
      * @Given /^I follow localized "(?P<link>(?:[^"]|\\")*)"/
      */
@@ -143,7 +157,6 @@ class MultilingualContext extends RawMultilingualContext {
         } else {
             $target = $this->localizeField($target);
         }
-        
         $this->getSession()->getPage()->clickLink($target);
     }
 
@@ -268,7 +281,7 @@ class MultilingualContext extends RawMultilingualContext {
      *
      * @When I select localized :option from chosen :selector
      */
-    public function lselectLocalizedOptionWithJavascript($selector, $option) {
+    public function iSelectLocalizedOptionWithJavascript($selector, $option) {
         $localizedOption = $this->localizeTarget($option);
         $this->selectOptionWithJavascript($selector, $localizedOption);
     }
@@ -282,4 +295,41 @@ class MultilingualContext extends RawMultilingualContext {
         $label = $this->localizeTarget($label);
         $this->assertSelectRadioById($label, $id);
     }
+
+    /**
+     * @Then I should see the localized link :link
+     */
+    public function assertLinkVisible($link) {
+        $element = $this->getSession()->getPage();
+        $link = $this->localizeTarget($link);
+        $result = $element->findLink($link);
+
+        try {
+          if ($result && !$result->isVisible()) {
+            throw new \Exception(sprintf("No link to '%s' on the page %s", $link, $this->getSession()->getCurrentUrl()));
+          }
+        }
+        catch (UnsupportedDriverActionException $e) {
+          // We catch the UnsupportedDriverActionException exception in case
+          // this step is not being performed by a driver that supports javascript.
+          // All other exceptions are valid.
+        }
+
+        if (empty($result)) {
+          throw new \Exception(sprintf("No link to '%s' on the page %s", $link, $this->getSession()->getCurrentUrl()));
+        }
+      }
+
+    /**
+     * Presses button with specified id|name|title|alt|value
+     * Example: When I press "Log In"
+     * Example: And I press "Log In"
+     *
+     * @When /^(?:|I )press localized "(?P<button>(?:[^"]|\\")*)"$/
+     */
+    public function pressButton($button) {
+        $button = $this->localizeTarget($button);
+        $this->getSession()->getPage()->pressButton($button);
+    }
+
 }
