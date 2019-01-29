@@ -1,5 +1,5 @@
 {
-  "name": "kolevCustomized/multilingual-extension",
+  "name": "miteshmap/MultilingualExtension",
   "type": "behat-extension",
   "description": "Behat extension for testing multilingual sites",
   "keywords": ["drupal", "web", "test", "behat", "testing", "extension", "multilingual", "multilanguage"],
